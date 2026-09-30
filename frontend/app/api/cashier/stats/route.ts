@@ -1,0 +1,1 @@
+export { GET } from "../../../../../config/backend/api/cashier/stats/route";

@@ -1,0 +1,226 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" width="900" height="700">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a0a05;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3d1a0a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6b3520;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="plate1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f5e6d3" />
+      <stop offset="100%" style="stop-color:#e8c9a0" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#d4a843" />
+      <stop offset="100%" style="stop-color:#b8860b" />
+    </linearGradient>
+    <linearGradient id="syrup" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#c8740a;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#8b4513;stop-opacity:0.7" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#00000055"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="700" fill="url(#bg)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="100" cy="100" r="80" fill="none" stroke="#c8744a" stroke-width="1" opacity="0.2"/>
+  <circle cx="800" cy="600" r="100" fill="none" stroke="#d4a843" stroke-width="1" opacity="0.15"/>
+  <circle cx="450" cy="350" r="300" fill="none" stroke="#c8744a" stroke-width="0.5" opacity="0.1"/>
+
+  <!-- ══════ KONAFA PLATE (center-left) ══════ -->
+  <g filter="url(#shadow)" transform="translate(130, 150)">
+    <!-- Plate -->
+    <ellipse cx="130" cy="185" rx="130" ry="18" fill="#c8a882" opacity="0.6"/>
+    <ellipse cx="130" cy="175" rx="130" ry="18" fill="#e8d5b0"/>
+    <!-- Konafa body -->
+    <ellipse cx="130" cy="140" rx="115" ry="50" fill="#e8b870"/>
+    <!-- Shredded texture lines -->
+    <g opacity="0.6">
+      <path d="M30,140 Q80,125 130,140 Q180,155 230,140" stroke="#c8844a" stroke-width="2" fill="none"/>
+      <path d="M35,148 Q85,133 130,148 Q178,163 225,148" stroke="#c8844a" stroke-width="1.5" fill="none"/>
+      <path d="M40,132 Q90,117 130,132 Q172,147 220,132" stroke="#d4944a" stroke-width="1.5" fill="none"/>
+      <path d="M45,156 Q90,141 130,156 Q173,171 215,156" stroke="#b87040" stroke-width="1.5" fill="none"/>
+      <path d="M38,124 Q88,109 128,124 Q170,139 218,124" stroke="#d4944a" stroke-width="1" fill="none"/>
+    </g>
+    <!-- Cream layer -->
+    <ellipse cx="130" cy="130" rx="100" ry="35" fill="#faf3e8" opacity="0.9"/>
+    <ellipse cx="130" cy="125" rx="95" ry="30" fill="#fff9f0"/>
+    <!-- Syrup drips -->
+    <path d="M80,130 Q78,145 76,155" stroke="url(#syrup)" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M110,128 Q108,143 106,153" stroke="url(#syrup)" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M155,128 Q158,143 160,155" stroke="url(#syrup)" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <path d="M185,130 Q188,145 187,152" stroke="url(#syrup)" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <!-- Pistachios -->
+    <ellipse cx="100" cy="118" rx="8" ry="5" fill="#5a8a3a" opacity="0.9"/>
+    <ellipse cx="125" cy="112" rx="9" ry="5" fill="#4a7a2a" opacity="0.9"/>
+    <ellipse cx="152" cy="115" rx="8" ry="5" fill="#5a8a3a" opacity="0.9"/>
+    <ellipse cx="175" cy="120" rx="7" ry="4" fill="#4a7a2a" opacity="0.9"/>
+    <ellipse cx="85" cy="110" rx="6" ry="4" fill="#6a9a4a" opacity="0.8"/>
+    <!-- Label -->
+    <text x="130" y="220" text-anchor="middle" font-family="'Tajawal', Arial" font-size="16" font-weight="700" fill="#c8744a">كنافة بالقشطة</text>
+  </g>
+
+  <!-- ══════ OM ALI (top center) ══════ -->
+  <g filter="url(#shadow)" transform="translate(360, 60)">
+    <rect x="10" y="120" width="200" height="110" rx="8" fill="#c8a882" opacity="0.5"/>
+    <rect x="10" y="110" width="200" height="110" rx="8" fill="#e8d5b0"/>
+    <!-- Content layers -->
+    <rect x="20" y="118" width="180" height="95" rx="6" fill="#f5e8cc"/>
+    <!-- Texture -->
+    <rect x="25" y="125" width="170" height="8" rx="3" fill="#e8d4a8" opacity="0.7"/>
+    <rect x="25" y="140" width="165" height="7" rx="3" fill="#dcc89a" opacity="0.6"/>
+    <rect x="25" y="153" width="170" height="8" rx="3" fill="#e8d4a8" opacity="0.7"/>
+    <rect x="25" y="166" width="160" height="7" rx="3" fill="#dcc89a" opacity="0.6"/>
+    <!-- Golden top -->
+    <rect x="18" y="110" width="184" height="20" rx="4" fill="#d4a843" opacity="0.8"/>
+    <!-- Nuts on top -->
+    <circle cx="60" cy="118" r="5" fill="#8B4513" opacity="0.9"/>
+    <circle cx="80" cy="115" r="4" fill="#8B4513" opacity="0.9"/>
+    <circle cx="100" cy="118" r="6" fill="#5a8a3a" opacity="0.9"/>
+    <circle cx="122" cy="115" r="4" fill="#8B4513" opacity="0.9"/>
+    <circle cx="142" cy="118" r="5" fill="#c8744a" opacity="0.9"/>
+    <circle cx="160" cy="115" r="4" fill="#5a8a3a" opacity="0.9"/>
+    <circle cx="75" cy="105" r="5" fill="#8B4513" opacity="0.8"/>
+    <circle cx="110" cy="103" r="4" fill="#5a8a3a" opacity="0.8"/>
+    <circle cx="140" cy="106" r="5" fill="#d4a843" opacity="0.8"/>
+    <text x="110" y="255" text-anchor="middle" font-family="'Tajawal', Arial" font-size="16" font-weight="700" fill="#d4a843">أم علي</text>
+  </g>
+
+  <!-- ══════ BAKLAVA BOX (right) ══════ -->
+  <g filter="url(#shadow)" transform="translate(560, 120)">
+    <!-- Box base -->
+    <rect x="0" y="60" width="280" height="200" rx="10" fill="#2a1508"/>
+    <rect x="0" y="55" width="280" height="200" rx="10" fill="#1a0805"/>
+    <!-- Individual baklava pieces -->
+    <!-- Row 1 -->
+    <g>
+      <polygon points="20,80 75,80 65,120 10,120" fill="#d4a843"/>
+      <polygon points="75,80 130,80 120,120 65,120" fill="#c89030"/>
+      <polygon points="130,80 185,80 175,120 120,120" fill="#d4a843"/>
+      <polygon points="185,80 240,80 230,120 175,120" fill="#c89030"/>
+      <!-- Row1 top -->
+      <line x1="10" y1="120" x2="230" y2="120" stroke="#8b4513" stroke-width="1.5"/>
+      <line x1="20" y1="80" x2="240" y2="80" stroke="#8b4513" stroke-width="1.5"/>
+      <line x1="65" y1="80" x2="65" y2="120" stroke="#8b4513" stroke-width="1" opacity="0.5"/>
+      <line x1="120" y1="80" x2="120" y2="120" stroke="#8b4513" stroke-width="1" opacity="0.5"/>
+      <line x1="175" y1="80" x2="175" y2="120" stroke="#8b4513" stroke-width="1" opacity="0.5"/>
+    </g>
+    <!-- Row 2 -->
+    <g transform="translate(0,45)">
+      <polygon points="20,80 75,80 65,120 10,120" fill="#c89030"/>
+      <polygon points="75,80 130,80 120,120 65,120" fill="#d4a843"/>
+      <polygon points="130,80 185,80 175,120 120,120" fill="#c89030"/>
+      <polygon points="185,80 240,80 230,120 175,120" fill="#d4a843"/>
+      <line x1="10" y1="120" x2="230" y2="120" stroke="#8b4513" stroke-width="1.5"/>
+    </g>
+    <!-- Row 3 -->
+    <g transform="translate(0,90)">
+      <polygon points="20,80 75,80 65,120 10,120" fill="#d4a843"/>
+      <polygon points="75,80 130,80 120,120 65,120" fill="#c89030"/>
+      <polygon points="130,80 185,80 175,120 120,120" fill="#d4a843"/>
+      <polygon points="185,80 240,80 230,120 175,120" fill="#c89030"/>
+    </g>
+    <!-- Pistachios scattered -->
+    <circle cx="43" cy="95" r="4" fill="#3d6b1a" opacity="0.9"/>
+    <circle cx="98" cy="92" r="4" fill="#3d6b1a" opacity="0.9"/>
+    <circle cx="155" cy="95" r="4" fill="#3d6b1a" opacity="0.9"/>
+    <circle cx="210" cy="92" r="4" fill="#3d6b1a" opacity="0.9"/>
+    <circle cx="43" cy="140" r="4" fill="#3d6b1a" opacity="0.9"/>
+    <circle cx="98" cy="137" r="4" fill="#3d6b1a" opacity="0.9"/>
+    <circle cx="155" cy="140" r="4" fill="#3d6b1a" opacity="0.9"/>
+    <circle cx="210" cy="137" r="4" fill="#3d6b1a" opacity="0.9"/>
+    <!-- Honey drizzle -->
+    <path d="M30,70 Q35,50 40,70" stroke="#d4a843" stroke-width="3" fill="none" opacity="0.7"/>
+    <path d="M120,65 Q125,45 130,65" stroke="#d4a843" stroke-width="3" fill="none" opacity="0.7"/>
+    <path d="M210,70 Q215,50 220,70" stroke="#d4a843" stroke-width="3" fill="none" opacity="0.7"/>
+    <text x="140" y="275" text-anchor="middle" font-family="'Tajawal', Arial" font-size="16" font-weight="700" fill="#d4a843">بقلاوة بالفستق</text>
+  </g>
+
+  <!-- ══════ MAHALABIYA CUPS (bottom center) ══════ -->
+  <g filter="url(#shadow)" transform="translate(270, 380)">
+    <!-- Cup 1 -->
+    <g>
+      <path d="M20,20 L60,20 L55,100 L25,100 Z" fill="#fff9f0"/>
+      <path d="M20,20 L60,20 L57,35 L23,35 Z" fill="#f5e8cc"/>
+      <ellipse cx="40" cy="20" rx="20" ry="6" fill="#faf3e8"/>
+      <!-- Rose water surface -->
+      <ellipse cx="40" cy="28" rx="18" ry="5" fill="#f8d4e8" opacity="0.6"/>
+      <!-- Pistachios on top -->
+      <ellipse cx="33" cy="22" rx="5" ry="3" fill="#4a7a2a"/>
+      <ellipse cx="47" cy="22" rx="5" ry="3" fill="#4a7a2a"/>
+      <text x="40" y="118" text-anchor="middle" font-family="'Tajawal', Arial" font-size="12" fill="#c8744a">مهلبية</text>
+    </g>
+    <!-- Cup 2 -->
+    <g transform="translate(70, 0)">
+      <path d="M20,20 L60,20 L55,100 L25,100 Z" fill="#fff9f0"/>
+      <path d="M20,20 L60,20 L57,35 L23,35 Z" fill="#f5e8cc"/>
+      <ellipse cx="40" cy="20" rx="20" ry="6" fill="#faf3e8"/>
+      <ellipse cx="40" cy="26" rx="16" ry="4" fill="#f8f0c0" opacity="0.8"/>
+      <ellipse cx="33" cy="22" rx="5" ry="3" fill="#8B4513"/>
+      <ellipse cx="47" cy="22" rx="5" ry="3" fill="#8B4513"/>
+      <text x="40" y="118" text-anchor="middle" font-family="'Tajawal', Arial" font-size="12" fill="#c8744a">أرز بلبن</text>
+    </g>
+    <!-- Cup 3 -->
+    <g transform="translate(140, 0)">
+      <path d="M20,20 L60,20 L55,100 L25,100 Z" fill="#fff9f0"/>
+      <path d="M20,20 L60,20 L57,35 L23,35 Z" fill="#f5e8cc"/>
+      <ellipse cx="40" cy="20" rx="20" ry="6" fill="#faf3e8"/>
+      <ellipse cx="40" cy="26" rx="16" ry="4" fill="#f8d080" opacity="0.8"/>
+      <text x="40" y="118" text-anchor="middle" font-family="'Tajawal', Arial" font-size="12" fill="#c8744a">كريم كراميل</text>
+    </g>
+    <!-- Cup 4 -->
+    <g transform="translate(210, 0)">
+      <path d="M20,20 L60,20 L55,100 L25,100 Z" fill="#fff9f0"/>
+      <path d="M20,20 L60,20 L57,35 L23,35 Z" fill="#f5e8cc"/>
+      <ellipse cx="40" cy="20" rx="20" ry="6" fill="#faf3e8"/>
+      <ellipse cx="40" cy="26" rx="16" ry="4" fill="#f4c0d8" opacity="0.8"/>
+      <ellipse cx="33" cy="21" rx="6" ry="3" fill="#e8607a" opacity="0.9"/>
+      <text x="40" y="118" text-anchor="middle" font-family="'Tajawal', Arial" font-size="12" fill="#c8744a">مهلبية مانجو</text>
+    </g>
+  </g>
+
+  <!-- ══════ ZALABEYA PLATE (bottom left) ══════ -->
+  <g filter="url(#shadow)" transform="translate(40, 430)">
+    <ellipse cx="110" cy="140" rx="110" ry="15" fill="#c8a882" opacity="0.5"/>
+    <ellipse cx="110" cy="130" rx="110" ry="15" fill="#e8d5b0"/>
+    <!-- Zalabiya spirals -->
+    <g>
+      <path d="M50,80 Q55,60 75,65 Q95,70 90,90 Q85,110 65,105 Q45,100 50,80" stroke="#d4843a" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <path d="M90,95 Q95,75 115,80 Q135,85 130,105 Q125,125 105,120 Q85,115 90,95" stroke="#c8744a" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <path d="M130,80 Q135,60 155,65 Q175,70 170,90 Q165,110 145,105 Q125,100 130,80" stroke="#d4843a" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <!-- Honey glaze -->
+      <path d="M50,80 Q55,60 75,65 Q95,70 90,90 Q85,110 65,105 Q45,100 50,80" stroke="#f0a030" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.5"/>
+      <path d="M90,95 Q95,75 115,80 Q135,85 130,105 Q125,125 105,120 Q85,115 90,95" stroke="#f0a030" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.5"/>
+      <path d="M130,80 Q135,60 155,65 Q175,70 170,90 Q165,110 145,105 Q125,100 130,80" stroke="#f0a030" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.5"/>
+    </g>
+    <text x="110" y="168" text-anchor="middle" font-family="'Tajawal', Arial" font-size="15" font-weight="700" fill="#c8744a">زلابية بالعسل</text>
+  </g>
+
+  <!-- ══════ TITLE OVERLAY ══════ -->
+  <g>
+    <!-- Decorative line -->
+    <line x1="50" y1="640" x2="400" y2="640" stroke="#c8744a" stroke-width="1" opacity="0.4"/>
+    <circle cx="225" cy="640" r="4" fill="#c8744a" opacity="0.5"/>
+    <!-- Arabic title -->
+    <text x="450" y="630" text-anchor="middle" font-family="'Tajawal', Arial" font-size="22" font-weight="800" fill="#e8c5a0" filter="url(#glow)">🍮 حلويات مصرية أصيلة 🍮</text>
+    <text x="450" y="660" text-anchor="middle" font-family="'Tajawal', Arial" font-size="14" fill="#c8744a" opacity="0.8">مصنوعة يدوياً بأفضل المكونات</text>
+    <line x1="500" y1="640" x2="850" y2="640" stroke="#c8744a" stroke-width="1" opacity="0.4"/>
+  </g>
+
+  <!-- Floating sparkles -->
+  <g opacity="0.5" filter="url(#glow)">
+    <text x="520" y="100" font-size="20" fill="#d4a843">✦</text>
+    <text x="70" y="420" font-size="16" fill="#c8744a">✦</text>
+    <text x="840" y="200" font-size="18" fill="#d4a843">✦</text>
+    <text x="310" y="360" font-size="14" fill="#c8744a">✦</text>
+    <text x="750" y="390" font-size="22" fill="#d4a843">✦</text>
+    <text x="140" y="310" font-size="12" fill="#d4a843">✦</text>
+  </g>
+</svg>

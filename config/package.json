@@ -1,0 +1,30 @@
+{
+  "name": "el-dawly-dessert",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@prisma/client": "^6.11.1",
+    "jsonwebtoken": "^9.0.3",
+    "lucide-react": "^0.525.0",
+    "next": "^16.1.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "uuid": "^11.1.0",
+    "zod": "^4.0.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "prisma": "^6.11.1",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

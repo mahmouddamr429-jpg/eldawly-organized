@@ -1,0 +1,1 @@
+export { POST } from "../../../../../config/backend/api/users/spend/route";

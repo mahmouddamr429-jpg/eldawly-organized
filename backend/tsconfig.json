@@ -1,0 +1,11 @@
+{
+  "extends": "../config/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["../config/backend/*"],
+      "next/*": ["../config/node_modules/next/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}

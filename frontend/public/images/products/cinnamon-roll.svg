@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-labelledby="title">
+  <title id="title">Cinnamon rolls with icing</title>
+  <defs>
+    <radialGradient id="dough" cx="42%" cy="30%" r="72%">
+      <stop offset="0" stop-color="#f4d19a"/>
+      <stop offset="0.68" stop-color="#d99348"/>
+      <stop offset="1" stop-color="#99501f"/>
+    </radialGradient>
+    <linearGradient id="icing" x1="0" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#fffdf5"/>
+      <stop offset="1" stop-color="#efdcb8"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="10"/>
+      <feOffset dy="12"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.2"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <g id="roll" filter="url(#shadow)">
+      <ellipse rx="112" ry="84" fill="#814018" opacity="0.45" transform="translate(0 10)"/>
+      <ellipse rx="108" ry="80" fill="url(#dough)" stroke="#b66b31" stroke-width="5"/>
+      <path d="M-70 1 C-71-43-19-62 19-46 C66-26 66 27 27 44 C-11 61-46 36-37 10 C-30-11 2-20 18-4 C32 9 22 27 7 29 C-4 30-13 21-9 12" fill="none" stroke="#9b4f20" stroke-width="18" stroke-linecap="round"/>
+      <path d="M-83-37 C-55-70-15-73 5-67 M36-57 C75-39 91-3 79 23 M-53 62 C-20 79 24 72 44 53" fill="none" stroke="url(#icing)" stroke-width="11" stroke-linecap="round"/>
+      <path d="M-44-58 C-34-69-20-75-5-77 M62 42 C53 57 42 65 30 70 M-91 9 C-89 20-85 29-79 37" fill="none" stroke="#fff8e7" stroke-width="7" stroke-linecap="round"/>
+      <ellipse cx="-38" cy="-47" rx="16" ry="7" fill="#fff9e8" opacity="0.55" transform="rotate(-28 -38 -47)"/>
+    </g>
+  </defs>
+  <rect width="600" height="600" fill="#fff"/>
+  <ellipse cx="300" cy="463" rx="225" ry="30" fill="#eee9e1"/>
+  <g transform="translate(183 363) rotate(-9) scale(.88)"><use href="#roll"/></g>
+  <g transform="translate(407 363) rotate(9) scale(.88)"><use href="#roll"/></g>
+  <g transform="translate(300 247) rotate(2) scale(1.05)"><use href="#roll"/></g>
+</svg>

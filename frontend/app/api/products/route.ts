@@ -1,0 +1,1 @@
+export { GET, POST, PATCH } from "../../../../config/backend/api/products/route";

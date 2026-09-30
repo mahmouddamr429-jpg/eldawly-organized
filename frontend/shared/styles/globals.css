@@ -1,0 +1,644 @@
+@import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --font-sans: 'Tajawal', sans-serif;
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --radius-sm: calc(var(--radius) - 4px);
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+    --radius: 0.75rem;
+    --background: #fdf9f5;
+    --foreground: #2d2017;
+    --card: #ffffff;
+    --card-foreground: #2d2017;
+    --popover: #ffffff;
+    --popover-foreground: #2d2017;
+    --primary: #c8744a;
+    --primary-foreground: #ffffff;
+    --secondary: #f5e6de;
+    --secondary-foreground: #2d2017;
+    --muted: #f5e6de;
+    --muted-foreground: #888888;
+    --accent: #d4a843;
+    --accent-foreground: #2d2017;
+    --destructive: #ef4444;
+    --border: #e8ddd2;
+    --input: #e8ddd2;
+    --ring: #c8744a;
+    --nav-h: 70px;
+    --primary-dark: #a85a36;
+    --primary-light: #f5e6de;
+    --gold: #d4a843;
+    --ebony: #2d2017;
+    --custom-radius: 20px;
+}
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #fdf9f5;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 99px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+/* ═══════════════════════════════════════════
+   GRADIENT TEXT
+═══════════════════════════════════════════ */
+
+.gradient-text {
+    background: linear-gradient(135deg, #d4a843, #c8744a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+
+/* ═══════════════════════════════════════════
+   PAGE ENTRANCE ANIMATION
+═══════════════════════════════════════════ */
+
+@keyframes pageEnter {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-enter {
+    animation: pageEnter 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+
+/* ═══════════════════════════════════════════
+   CATEGORY SLIDE + MORPH ANIMATION
+═══════════════════════════════════════════ */
+
+@keyframes catSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cat-slide-in {
+    animation: catSlideIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+
+/* ═══════════════════════════════════════════
+   STAGGERED CARD ANIMATION (3D LIFT)
+═══════════════════════════════════════════ */
+
+@keyframes cardFadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card-fade-up {
+    animation: cardFadeUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+}
+
+
+/* ═══════════════════════════════════════════
+   HERO SHIMMER EFFECT
+═══════════════════════════════════════════ */
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+.hero-shimmer {
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.08) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+
+/* ═══════════════════════════════════════════
+   FLOATING EMOJI ANIMATION
+═══════════════════════════════════════════ */
+
+@keyframes floatBounce {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.float-bounce {
+    animation: floatBounce 2.5s ease-in-out infinite;
+}
+
+
+/* ═══════════════════════════════════════════
+   PULSE GLOW FOR BADGES
+═══════════════════════════════════════════ */
+
+@keyframes pulseGlow {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(200, 116, 74, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(200, 116, 74, 0);
+    }
+}
+
+.pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+}
+
+
+/* ═══════════════════════════════════════════
+   NAVBAR MOBILE MENU ANIMATION
+═══════════════════════════════════════════ */
+
+@keyframes menuSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.menu-slide-down {
+    animation: menuSlideDown 0.25s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+
+/* ═══════════════════════════════════════════
+   CART DRAWER SLIDE
+═══════════════════════════════════════════ */
+
+@keyframes cartSlideIn {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.cart-slide-in {
+    animation: cartSlideIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+
+/* ═══════════════════════════════════════════
+   MODAL POP-IN
+═══════════════════════════════════════════ */
+
+@keyframes modalPopIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.modal-pop-in {
+    animation: modalPopIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+
+/* ═══════════════════════════════════════════
+   STAT CARD ENTRANCE
+═══════════════════════════════════════════ */
+
+@keyframes statCardEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.stat-card-enter {
+    animation: statCardEnter 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+}
+
+
+/* ═══════════════════════════════════════════
+   RIBBON BANNER ANIMATION
+═══════════════════════════════════════════ */
+
+@keyframes ribbonSlide {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.ribbon-slide {
+    animation: ribbonSlide 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+
+/* ═══════════════════════════════════════════
+   SUCCESS CHECKMARK ANIMATION
+═══════════════════════════════════════════ */
+
+@keyframes successPop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.success-pop {
+    animation: successPop 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+
+/* ═══════════════════════════════════════════
+   PROGRESS BAR FILL ANIMATION
+═══════════════════════════════════════════ */
+
+@keyframes progressFill {
+    from {
+        width: 0%;
+    }
+}
+
+.progress-fill {
+    animation: progressFill 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+
+/* ═══════════════════════════════════════════
+   TOAST SLIDE-IN
+═══════════════════════════════════════════ */
+
+@keyframes toastIn {
+    from {
+        transform: translateY(100%) scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.toast-in {
+    animation: toastIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+
+/* ═══════════════════════════════════════════
+   PRODUCT CARD HOVER 3D TILT
+═══════════════════════════════════════════ */
+
+.product-card-3d {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card-3d:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(45, 32, 23, 0.12), 0 8px 16px rgba(200, 116, 74, 0.08);
+}
+
+
+/* ═══════════════════════════════════════════
+   CATEGORY BAR INDICATOR
+═══════════════════════════════════════════ */
+
+.cat-pill {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cat-pill::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #c8744a;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    transform: translateX(-50%);
+}
+
+.cat-pill:hover::after {
+    width: 60%;
+}
+
+.cat-pill-active::after {
+    width: 80% !important;
+    background: white !important;
+}
+
+
+/* ═══════════════════════════════════════════
+   LOGIN PAGE GRADIENT ANIMATION
+═══════════════════════════════════════════ */
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.animated-gradient {
+    background-size: 200% 200%;
+    animation: gradientShift 8s ease infinite;
+}
+
+
+/* ═══════════════════════════════════════════
+   BLOB BACKGROUND ANIMATION
+═══════════════════════════════════════════ */
+
+@keyframes blob {
+    0% {
+        transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+        transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+        transform: translate(-20px, 20px) scale(0.9);
+    }
+    100% {
+        transform: translate(0px, 0px) scale(1);
+    }
+}
+
+.animate-blob {
+    animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+    animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+    animation-delay: 4s;
+}
+
+
+/* ═══════════════════════════════════════════
+   SLOW PULSE FOR GLOWING ORBS
+═══════════════════════════════════════════ */
+
+@keyframes pulseSlow {
+    0%,
+    100% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.15);
+    }
+}
+
+.animate-pulse-slow {
+    animation: pulseSlow 4s ease-in-out infinite;
+}
+
+
+/* ═══════════════════════════════════════════
+   FLOATING PARTICLES (LOGIN PAGE)
+═══════════════════════════════════════════ */
+
+@keyframes float1 {
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.3;
+    }
+    25% {
+        transform: translate(20px, -30px) scale(1.2);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translate(-10px, -60px) scale(0.8);
+        opacity: 0.4;
+    }
+    75% {
+        transform: translate(15px, -20px) scale(1.1);
+        opacity: 0.5;
+    }
+}
+
+@keyframes float2 {
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.2;
+    }
+    25% {
+        transform: translate(-25px, -40px) scale(1.3);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translate(15px, -70px) scale(0.7);
+        opacity: 0.3;
+    }
+    75% {
+        transform: translate(-20px, -10px) scale(1.1);
+        opacity: 0.6;
+    }
+}
+
+@keyframes float3 {
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.25;
+    }
+    33% {
+        transform: translate(30px, -50px) scale(1.15);
+        opacity: 0.5;
+    }
+    66% {
+        transform: translate(-15px, -25px) scale(0.85);
+        opacity: 0.35;
+    }
+}
+
+@keyframes float4 {
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.2;
+    }
+    50% {
+        transform: translate(-30px, -60px) rotate(180deg);
+        opacity: 0.5;
+    }
+}
+
+@keyframes float5 {
+    0%,
+    100% {
+        transform: translate(0, 0) scale(0.8);
+        opacity: 0.3;
+    }
+    30% {
+        transform: translate(25px, -40px) scale(1.2);
+        opacity: 0.5;
+    }
+    70% {
+        transform: translate(-20px, -20px) scale(1);
+        opacity: 0.35;
+    }
+}
+
+.animate-float-1 {
+    animation: float1 8s ease-in-out infinite;
+}
+
+.animate-float-2 {
+    animation: float2 10s ease-in-out infinite;
+}
+
+.animate-float-3 {
+    animation: float3 7s ease-in-out infinite;
+}
+
+.animate-float-4 {
+    animation: float4 12s ease-in-out infinite;
+}
+
+.animate-float-5 {
+    animation: float5 9s ease-in-out infinite;
+}
+
+
+/* ═══════════════════════════════════════════
+   CHECKOUT STEP TRANSITION
+═══════════════════════════════════════════ */
+
+@keyframes checkoutStepIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+        filter: blur(2px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+.checkout-step-in {
+    animation: checkoutStepIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+
+/* ═══════════════════════════════════════════
+   CONFETTI BURST (ORDER SUCCESS)
+═══════════════════════════════════════════ */
+
+@keyframes confettiBurst {
+    0% {
+        transform: translateY(0) rotate(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) rotate(720deg);
+        opacity: 0;
+    }
+}
