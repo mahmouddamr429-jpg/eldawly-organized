@@ -45,5 +45,6 @@ model Order {
   orderType     String   @default("delivery")
   notes         String   @default("")
   userId        Int?
+  spendCredited Boolean  @default(false)
   createdAt     DateTime @default(now())
 }

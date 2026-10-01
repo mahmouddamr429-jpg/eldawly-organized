@@ -1,9 +1,12 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '../../../lib/db';
+import { AuthenticationError, getAuthenticatedUser, requireRole } from '../../../lib/auth';
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
-    const [orders, products] = await Promise.all([db.order.findMany(), db.product.findMany()]);
+    requireRole(await getAuthenticatedUser(req), ['admin']);
+    const [allOrders, products] = await Promise.all([db.order.findMany(), db.product.findMany()]);
+    const orders = allOrders.filter((order: any) => order.status !== 'cancelled');
     const totalRevenue = orders.reduce((s: number, o: any) => s + o.total, 0);
     const totalOrders = orders.length;
     const productCount = products.length;
@@ -28,5 +31,8 @@ export async function GET() {
     const lowStock = await db.product.findMany({ where: { stock: { lte: 10 } }, orderBy: { stock: 'asc' }, take: 20 });
 
     return NextResponse.json({ totalRevenue, totalOrders, productCount, avgOrderValue, topProducts: Object.entries(sales).sort(([, a]: any, [, b]: any) => b.qty - a.qty).slice(0, 10).map(([id, s]: any) => ({ id, ...s })), categorySales, lowStock, dailyRevenue, recentOrders });
-  } catch { return NextResponse.json({ error: 'خطأ في السيرفر' }, { status: 500 }); }
+  } catch (error) {
+    if (error instanceof AuthenticationError) return NextResponse.json({ error: error.message }, { status: error.status });
+    return NextResponse.json({ error: 'خطأ في السيرفر' }, { status: 500 });
+  }
 }

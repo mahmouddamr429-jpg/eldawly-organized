@@ -11,8 +11,13 @@ interface User {
 
 export function getUser(): User | null {
   if (typeof window === 'undefined') return null;
-  const user = localStorage.getItem('user');
-  return user ? JSON.parse(user) : null;
+  try {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  } catch (error) {
+    console.error('Unable to read saved account:', error);
+    return null;
+  }
 }
 
 export function setUser(user: User | null) {
@@ -46,6 +51,11 @@ export function setToken(token: string | null) {
   if (typeof window === 'undefined') return;
   if (token) localStorage.setItem('token', token);
   else localStorage.removeItem('token');
+}
+
+function authHeaders(): Record<string, string> {
+  const token = typeof window === 'undefined' ? null : localStorage.getItem('token');
+  return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
 export const authApi = {
@@ -99,25 +109,17 @@ function productAuthHeaders(): Record<string, string> {
 
 export const productApi = {
   async getAll(limit = 500, sort = 'id_desc') {
-    try {
-      const response = await fetch(`/api/products?limit=${limit}&sort=${sort}`);
-      if (!response.ok) throw new Error('Failed to fetch products');
-      return await response.json();
-    } catch (error) {
-      console.error('Product API error:', error);
-      return [];
-    }
+    const response = await fetch(`/api/products?limit=${limit}&sort=${sort}`);
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || 'تعذر تحميل المنتجات');
+    return result;
   },
 
   async getCategories() {
-    try {
-      const response = await fetch('/api/products/categories');
-      if (!response.ok) throw new Error('Failed to fetch categories');
-      return await response.json();
-    } catch (error) {
-      console.error('Category API error:', error);
-      return ['الكل'];
-    }
+    const response = await fetch('/api/products/categories');
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || 'تعذر تحميل الأقسام');
+    return result;
   },
 
   async create(data: any) {
@@ -153,25 +155,17 @@ export const productApi = {
 // Stats API
 export const statsApi = {
   async getAdmin() {
-    try {
-      const response = await fetch('/api/admin/stats');
-      if (!response.ok) throw new Error('Failed to fetch stats');
-      return await response.json();
-    } catch (error) {
-      console.error('Stats API error:', error);
-      return null;
-    }
+    const response = await fetch('/api/admin/stats', { headers: authHeaders() });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || 'تعذر تحميل الإحصائيات');
+    return result;
   },
 
   async getCashier() {
-    try {
-      const response = await fetch('/api/cashier/stats');
-      if (!response.ok) throw new Error('Failed to fetch cashier stats');
-      return await response.json();
-    } catch (error) {
-      console.error('Cashier stats API error:', error);
-      return { pending: [], completed: [] };
-    }
+    const response = await fetch('/api/cashier/stats', { headers: authHeaders() });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || 'تعذر تحميل بيانات الكاشير');
+    return result;
   },
 };
 
@@ -181,11 +175,12 @@ export const orderApi = {
     try {
       const url = query ? `/api/orders?${query}` : '/api/orders';
       const response = await fetch(url);
-      if (!response.ok) throw new Error('Failed to fetch orders');
-      return await response.json();
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'تعذر تحميل الطلبات');
+      return result;
     } catch (error) {
       console.error('Order API error:', error);
-      return [];
+      throw error;
     }
   },
 
@@ -193,7 +188,7 @@ export const orderApi = {
     try {
       const response = await fetch('/api/orders', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...authHeaders() },
         body: JSON.stringify(data),
       });
       const result = await response.json();
@@ -209,7 +204,7 @@ export const orderApi = {
     try {
       const response = await fetch('/api/orders/dine-in', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...authHeaders() },
         body: JSON.stringify(data),
       });
       if (!response.ok) throw new Error('Failed to create dine-in order');
@@ -224,7 +219,7 @@ export const orderApi = {
     try {
       const response = await fetch('/api/orders/dine-in', {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...authHeaders() },
         body: JSON.stringify({ orderId: id, status }),
       });
       if (!response.ok) throw new Error('Failed to update order');
@@ -235,12 +230,12 @@ export const orderApi = {
     }
   },
 
-  async updateSpend(userId: string, amount: number) {
+  async updateSpend(orderId: string) {
     try {
       const response = await fetch('/api/users/spend', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, amount }),
+        headers: { 'Content-Type': 'application/json', ...authHeaders() },
+        body: JSON.stringify({ orderId }),
       });
       if (!response.ok) throw new Error('Failed to update spend');
       return await response.json();

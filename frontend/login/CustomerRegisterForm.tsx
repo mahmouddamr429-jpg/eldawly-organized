@@ -37,8 +37,8 @@ export default function CustomerRegisterForm({ onError }: CustomerRegisterFormPr
     }
     if (!custPassword.trim()) {
       errs.custPassword = 'كلمة السر مطلوبة';
-    } else if (custPassword.trim().length < 4) {
-      errs.custPassword = 'كلمة السر لازم 4 حروف على الأقل';
+    } else if (custPassword.length < 8) {
+      errs.custPassword = 'كلمة السر لازم 8 حروف على الأقل';
     }
     return errs;
   };
@@ -71,6 +71,7 @@ export default function CustomerRegisterForm({ onError }: CustomerRegisterFormPr
   };
 
   const handleGuest = () => {
+    setToken(null);
     setUser({
       id: 'guest',
       role: 'guest',
@@ -119,7 +120,7 @@ export default function CustomerRegisterForm({ onError }: CustomerRegisterFormPr
         label="كلمة السر *"
         value={custPassword}
         onChange={v => { setCustPassword(v); clearErr('custPassword'); }}
-        placeholder="كلمة سر — 4 حروف على الأقل"
+        placeholder="كلمة سر — 8 حروف على الأقل"
         error={fieldErrors.custPassword}
         showToggle
         visible={showPassword}

@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 
 /* Mock database with a local file store for Next.js development. */
@@ -130,7 +130,9 @@ function readPersistedState(): MockDatabaseState | null {
 
   try {
     const saved = JSON.parse(readFileSync(databaseFile, 'utf8'));
-    if (!Array.isArray(saved.products) || !Array.isArray(saved.users) || !Array.isArray(saved.orders)) return null;
+    if (!Array.isArray(saved.products) || !Array.isArray(saved.users) || !Array.isArray(saved.orders)) {
+      throw new Error('Mock database file has an invalid format');
+    }
     return {
       products: saved.products,
       users: saved.users,
@@ -138,8 +140,8 @@ function readPersistedState(): MockDatabaseState | null {
       nextId: Number.isInteger(saved.nextId) ? saved.nextId : Math.max(0, ...saved.products.map((product: any) => product.id)) + 1,
       nextUserId: Number.isInteger(saved.nextUserId) ? saved.nextUserId : Math.max(0, ...saved.users.map((user: any) => user.id)) + 1,
     };
-  } catch {
-    return null;
+  } catch (error) {
+    throw new Error(`Unable to load mock database at ${databaseFile}`, { cause: error });
   }
 }
 
@@ -155,12 +157,10 @@ globalDatabase.__eldawlyMockDatabase = state;
 const { products, users, orders } = state;
 
 function persistState() {
-  try {
-    mkdirSync(dirname(databaseFile), { recursive: true });
-    writeFileSync(databaseFile, JSON.stringify(state), 'utf8');
-  } catch {
-    // Keep the in-memory store available in read-only serverless environments.
-  }
+  mkdirSync(dirname(databaseFile), { recursive: true });
+  const temporaryFile = `${databaseFile}.${process.pid}.tmp`;
+  writeFileSync(temporaryFile, JSON.stringify(state), 'utf8');
+  renameSync(temporaryFile, databaseFile);
 }
 
 function matchesWhere(item: any, where: any): boolean {

@@ -16,9 +16,10 @@ export default function MenuPage() {
   const [categories, setCategories] = useState<string[]>(['الكل']);
   const [currentCat, setCurrentCat] = useState('الكل');
   const [searchQuery, setSearchQuery] = useState('');
-  const { cart, setCart, addToCart, updateQty, removeFromCart, cartTotal, cartCount } = useCart();
+  const { cart, addToCart, updateQty, removeFromCart, cartTotal, cartCount } = useCart();
   const [cartOpen, setCartOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState('');
   const [toast, setToast] = useState<{ msg: string; type: string } | null>(null);
   const [animKey, setAnimKey] = useState(0);
   const prevCat = useRef('الكل');
@@ -29,15 +30,18 @@ export default function MenuPage() {
         const [p, c] = await Promise.all([productApi.getAll(), productApi.getCategories()]); 
         setProducts(Array.isArray(p) ? p : p?.data || []); 
         setCategories(c[0] === 'الكل' ? c : ['الكل', ...c]); 
-      } catch {} 
+      } catch (error) {
+        setLoadError(error instanceof Error ? error.message : 'تعذر تحميل القائمة');
+      }
       setLoading(false); 
     })(); 
   }, []);
-  useEffect(() => { try { const s = localStorage.getItem('eldawly_cart'); if (s) setCart(JSON.parse(s)); } catch {} }, []);
-  useEffect(() => { localStorage.setItem('eldawly_cart', JSON.stringify(cart)); }, [cart]);
 
   const showToast = (msg: string, type = 'ok') => { setToast({ msg, type }); setTimeout(() => setToast(null), 3500); };
-  const onAdd = useCallback((p: any) => { addToCart(p); showToast(`${p.name} اتضاف 🎉`); }, [addToCart]);
+  const onAdd = useCallback((p: any) => {
+    const added = addToCart(p);
+    showToast(added ? `${p.name} اتضاف 🎉` : `المتاح من ${p.name}: ${p.stock} فقط`, added ? 'ok' : 'warn');
+  }, [addToCart]);
 
   const displayed = currentCat === 'الكل'
     ? (searchQuery.length > 1 ? products.filter(p => p.name.includes(searchQuery) || (p.description || '').includes(searchQuery)) : products)
@@ -49,7 +53,6 @@ export default function MenuPage() {
   }, []);
 
   const goCheckout = () => {
-    localStorage.setItem('eldawly_cart', JSON.stringify(cart));
     router.push('/checkout');
   };
 
@@ -67,7 +70,12 @@ export default function MenuPage() {
             <MobileCategoryBar categories={categories} currentCat={currentCat} onChange={handleCatChange} />
 
             <div className="flex-1 min-w-0">
-              {loading ? <LoadingSpinner /> : (
+              {loading ? <LoadingSpinner /> : loadError ? (
+                <div className="col-span-full rounded-2xl bg-white p-8 text-center text-[#a33]">
+                  <p>{loadError}</p>
+                  <button onClick={() => window.location.reload()} className="mt-3 font-bold underline">حاول مرة أخرى</button>
+                </div>
+              ) : (
                 <div key={animKey} className="cat-slide-in grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
                   {displayed.length > 0 ? displayed.map((p, i) => (
                     <div key={p.id} className="card-fade-up" style={{ animationDelay: `${Math.min(i * 40, 400)}ms` }}>

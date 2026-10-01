@@ -3,22 +3,25 @@ import { db } from '../../../lib/db';
 
 export async function POST(req: NextRequest) {
   try {
-    const { userId, amount } = await req.json();
-    if (!userId || !amount || amount <= 0) return NextResponse.json({ success: false, error: 'بيانات ناقصة' }, { status: 400 });
+    const user = requireRole(await getAuthenticatedUser(req), ['customer']);
+    const { orderId } = await req.json();
+    if (typeof orderId !== 'string' || !orderId) return NextResponse.json({ success: false, error: 'رقم الطلب غير صالح' }, { status: 400 });
+    const order = await db.order.findUnique({ where: { id: orderId } });
+    if (!order || order.userId !== user.id || order.orderType !== 'delivery') {
+      return NextResponse.json({ success: false, error: 'الطلب غير موجود لهذا الحساب' }, { status: 404 });
+    }
+    if (order.spendCredited) {
+      return NextResponse.json({ success: true, totalSpent: user.totalSpent, loyaltyGift: user.loyaltyGift, justEarnedGift: false });
+    }
 
-    // Handle both number and string userId
-    const numericId = typeof userId === 'string' ? parseInt(userId) : userId;
-    if (isNaN(numericId)) return NextResponse.json({ success: false, error: 'معرف المستخدم غير صالح' }, { status: 400 });
-
-    const user = await db.user.findUnique({ where: { id: numericId } });
-    if (!user) return NextResponse.json({ success: false, error: 'المستخدم مش موجود' }, { status: 404 });
-
-    const newTotal = user.totalSpent + parseFloat(String(amount));
+    const newTotal = user.totalSpent + order.total;
     const loyaltyGift = newTotal >= 500;
     const justEarnedGift = loyaltyGift && !user.loyaltyGift;
     await db.user.update({ where: { id: user.id }, data: { totalSpent: newTotal, loyaltyGift } });
+    await db.order.update({ where: { id: order.id }, data: { spendCredited: true } });
     return NextResponse.json({ success: true, totalSpent: newTotal, loyaltyGift, justEarnedGift });
-  } catch (e: any) {
+  } catch (error) {
+    if (error instanceof AuthenticationError) return NextResponse.json({ success: false, error: error.message }, { status: error.status });
     return NextResponse.json({ success: false, error: 'خطأ في السيرفر' }, { status: 500 });
   }
 }

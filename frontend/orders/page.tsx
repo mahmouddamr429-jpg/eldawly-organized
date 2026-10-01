@@ -13,14 +13,19 @@ export default function OrdersPage() {
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
+  const [searchError, setSearchError] = useState('');
 
   const searchOrders = async () => {
     if (!searchQuery.trim()) return;
     setLoading(true);
+    setSearchError('');
     try {
       const data = await orderApi.getAll(`search=${encodeURIComponent(searchQuery.trim())}`);
       setOrders(Array.isArray(data) ? data : Array.isArray(data?.data) ? data.data : []);
-    } catch { setOrders([]); }
+    } catch (error) {
+      setOrders([]);
+      setSearchError(error instanceof Error ? error.message : 'تعذر البحث عن الطلب');
+    }
     setLoading(false);
     setSearched(true);
   };
@@ -40,6 +45,7 @@ export default function OrdersPage() {
           <OrderSearchBar searchQuery={searchQuery} onSearchChange={setSearchQuery} onSearch={searchOrders} loading={loading} />
 
           {loading && <SearchLoading />}
+          {!loading && searchError && <p role="alert" className="mt-5 rounded-xl bg-red-50 p-4 text-center text-red-700">{searchError}</p>}
           {!loading && searched && orders.length === 0 && <NoResults />}
           {!loading && orders.length > 0 && (
             <div className="space-y-4">

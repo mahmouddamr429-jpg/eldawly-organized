@@ -13,7 +13,7 @@ import CheckoutSuccessStep from './CheckoutSuccessStep';
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { cart, setCart, cartTotal, cartCount, clearCart } = useCart();
+  const { cart, cartTotal, cartCount, clearCart } = useCart();
   const [step, setStep] = useState(1);
   const [form, setForm] = useState({ name: '', email: '', phone: '', address: '', notes: '' });
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -21,7 +21,6 @@ export default function CheckoutPage() {
   const [placing, setPlacing] = useState(false);
   const [toast, setToast] = useState<{ msg: string; type: string } | null>(null);
 
-  useEffect(() => { try { const s = localStorage.getItem('eldawly_cart'); if (s) setCart(JSON.parse(s)); } catch {} }, []);
   useEffect(() => {
     const u = getUser();
     if (u) setForm(prev => ({ ...prev, name: u?.displayName || prev.name, email: u?.email || prev.email, phone: u?.phone || prev.phone }));
@@ -46,12 +45,12 @@ export default function CheckoutPage() {
     setPlacing(true);
     try {
       const u = getUser();
-      const d = await orderApi.create({ customerName: form.name, customerEmail: form.email, customerPhone: form.phone, address: form.address, notes: form.notes, items: cart, total: cartTotal, userId: u?.id });
+      const d = await orderApi.create({ customerName: form.name, customerEmail: form.email, customerPhone: form.phone, address: form.address, notes: form.notes, items: cart });
       if (d.success) {
-        setOrderId(d.orderId); setStep(3); clearCart(); localStorage.removeItem('eldawly_cart');
+        setOrderId(d.orderId); setStep(3); clearCart();
         if (u?.id) {
           try {
-            const sd = await orderApi.updateSpend(u.id, cartTotal);
+            const sd = await orderApi.updateSpend(d.orderId);
             if (sd.success) { setUser({ ...u, totalSpent: sd.totalSpent, loyaltyGift: sd.loyaltyGift }); if (sd.justEarnedGift) showToast('مبروك! هدية من المحل! 🎁'); }
           } catch {}
         }

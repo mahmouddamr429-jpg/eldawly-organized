@@ -1,4 +1,14 @@
 import jwt from 'jsonwebtoken';
-const S = process.env.JWT_SECRET || 'el-dawly-dessert-dev-secret-2024';
-export const signToken = (p: { userId: number; role: string }) => jwt.sign(p, S, { expiresIn: '7d' });
-export const verifyToken = (t: string) => jwt.verify(t, S) as { userId: number; role: string };
+
+function getSecret() {
+  const secret = process.env.JWT_SECRET;
+  if (secret) return secret;
+  if (process.env.NODE_ENV === 'production') throw new Error('JWT_SECRET must be configured in production');
+  return 'el-dawly-dessert-local-development-only';
+}
+
+export const signToken = (payload: { userId: number; role: string }) =>
+  jwt.sign(payload, getSecret(), { expiresIn: '7d' });
+
+export const verifyToken = (token: string) =>
+  jwt.verify(token, getSecret()) as { userId: number; role: string };
